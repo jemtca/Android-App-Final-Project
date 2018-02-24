@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_single_fragment);
 
         //getting the fragment manager
         FragmentManager fm = getSupportFragmentManager();
@@ -30,4 +30,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 }
