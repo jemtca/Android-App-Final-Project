@@ -1,6 +1,8 @@
 package com.bignerdranch.android.finalapp.models;
 
-public class ProvinceTerritory {
+import java.io.Serializable;
+
+public class ProvinceTerritory implements Serializable {
 
     private static final float GOOD_AND_SERVICES_TAX = 5.0f; //same pst for all provinces/territories
     private static final int GST_PST = 1; //provinces with GST and PST

@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.bignerdranch.android.finalapp.R;
-import com.bignerdranch.android.finalapp.activities.MainActivity;
+import com.bignerdranch.android.finalapp.activities.SecondActivity;
 import com.bignerdranch.android.finalapp.models.ProvincesTerritoriesArray;
 
 public class MainFragment extends Fragment implements AdapterView.OnItemSelectedListener {
@@ -42,10 +42,10 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
 
         View v = inflater.inflate(R.layout.fragment_main, container, false);
 
-        /*
+
         mSpinner = (Spinner) v.findViewById(R.id.spinner);
         //Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.spinner, android.R.layout.simple_spinner_item);
         //Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -54,7 +54,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
 
         //method to go to the second activity once a item was selected
         mSpinner.setOnItemSelectedListener(this);
-        */
+
 
 
         //button to test before using the spinner
@@ -63,9 +63,20 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
             @Override
             public void onClick(View v) {
 
-                //start second activity
                 //int index = getProvinceTerritoryIndex("Alberta");
-                //Intent intent = SecondActivity.newIntent(MainActivity.this, index);
+
+                //SecondFragment sf = SecondFragment.newInstance(index);
+
+                //FragmentManager fm = getFragmentManager();
+                //FragmentTransaction ft = fm.beginTransaction();
+                //ft.replace(R.id.fragment_container, sf);
+                //ft.addToBackStack(null);
+                //ft.commit();
+
+
+                // start second activity
+                //int index = getProvinceTerritoryIndex("Alberta");
+                //Intent intent = SecondActivity.newIntent(getActivity(), index);
                 //startActivity(intent);
 
             }
@@ -87,7 +98,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
         Toast.makeText(parent.getContext(), "Selected: " + item + "(" +id + " " + pos + ")", Toast.LENGTH_LONG).show();
         */
 
-        /*
+
         int index;
         Intent intent;
 
@@ -99,7 +110,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
             case 1:
 
                 index = getProvinceTerritoryIndex("Alberta");
-                intent = SecondActivity.newIntent(MainActivity.this, index);
+                intent = SecondActivity.newIntent(getActivity(), index);
                 startActivity(intent);
 
                 break;
@@ -107,7 +118,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
             case 2:
 
                 index = getProvinceTerritoryIndex("British Columbia");
-                intent = SecondActivity.newIntent(MainActivity.this, index);
+                intent = SecondActivity.newIntent(getActivity(), index);
                 startActivity(intent);
 
                 break;
@@ -115,7 +126,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
             case 3:
 
                 index = getProvinceTerritoryIndex("Manitoba");
-                intent = SecondActivity.newIntent(MainActivity.this, index);
+                intent = SecondActivity.newIntent(getActivity(), index);
                 startActivity(intent);
 
                 break;
@@ -123,7 +134,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
             case 4:
 
                 index = getProvinceTerritoryIndex("New Brunswick");
-                intent = SecondActivity.newIntent(MainActivity.this, index);
+                intent = SecondActivity.newIntent(getActivity(), index);
                 startActivity(intent);
 
                 break;
@@ -131,7 +142,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
             case 5:
 
                 index = getProvinceTerritoryIndex("Newfoundland and Labrador");
-                intent = SecondActivity.newIntent(MainActivity.this, index);
+                intent = SecondActivity.newIntent(getActivity(), index);
                 startActivity(intent);
 
                 break;
@@ -139,7 +150,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
             case 6:
 
                 index = getProvinceTerritoryIndex("Nova Scotia");
-                intent = SecondActivity.newIntent(MainActivity.this, index);
+                intent = SecondActivity.newIntent(getActivity(), index);
                 startActivity(intent);
 
                 break;
@@ -147,7 +158,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
             case 7:
 
                 index = getProvinceTerritoryIndex("Ontario");
-                intent = SecondActivity.newIntent(MainActivity.this, index);
+                intent = SecondActivity.newIntent(getActivity(), index);
                 startActivity(intent);
 
                 break;
@@ -155,7 +166,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
             case 8:
 
                 index = getProvinceTerritoryIndex("Prince Edward Island");
-                intent = SecondActivity.newIntent(MainActivity.this, index);
+                intent = SecondActivity.newIntent(getActivity(), index);
                 startActivity(intent);
 
                 break;
@@ -163,7 +174,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
             case 9:
 
                 index = getProvinceTerritoryIndex("Quebec");
-                intent = SecondActivity.newIntent(MainActivity.this, index);
+                intent = SecondActivity.newIntent(getActivity(), index);
                 startActivity(intent);
 
                 break;
@@ -171,7 +182,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
             case 10:
 
                 index = getProvinceTerritoryIndex("Saskatchewan");
-                intent = SecondActivity.newIntent(MainActivity.this, index);
+                intent = SecondActivity.newIntent(getActivity(), index);
                 startActivity(intent);
 
                 break;
@@ -179,7 +190,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
             case 11:
 
                 index = getProvinceTerritoryIndex("Northwest Territories");
-                intent = SecondActivity.newIntent(MainActivity.this, index);
+                intent = SecondActivity.newIntent(getActivity(), index);
                 startActivity(intent);
 
                 break;
@@ -187,7 +198,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
             case 12:
 
                 index = getProvinceTerritoryIndex("Nunavut");
-                intent = SecondActivity.newIntent(MainActivity.this, index);
+                intent = SecondActivity.newIntent(getActivity(), index);
                 startActivity(intent);
 
                 break;
@@ -195,12 +206,12 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
             case 13:
 
                 index = getProvinceTerritoryIndex("Yukon");
-                intent = SecondActivity.newIntent(MainActivity.this, index);
+                intent = SecondActivity.newIntent(getActivity(), index);
                 startActivity(intent);
 
                 break;
 
-        }*/
+        }
 
 
     }
