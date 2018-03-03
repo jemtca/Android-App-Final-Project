@@ -11,16 +11,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bignerdranch.android.finalapp.R;
-import com.bignerdranch.android.finalapp.activities.SecondActivity;
 import com.bignerdranch.android.finalapp.models.ProvinceTerritory;
-import com.bignerdranch.android.finalapp.models.ProvincesTerritoriesArray;
 
 public class SecondFragment extends Fragment {
 
     public static final String EXTRA_PROVINCE_INDEX = "province_index";
     public static final String EXTRA_PROVINCE = "province";
 
-    //private ProvincesTerritoriesArray mProvincesTerritoriesArray;
     private ProvinceTerritory mProvinceTerritory;
 
     private TextView mNameTextView;
@@ -36,12 +33,13 @@ public class SecondFragment extends Fragment {
 
     public static SecondFragment newInstance(int provinceIndex, ProvinceTerritory province){
 
+        //create a bundle object to save two objects (Integer and ProvinceTerritory)
         Bundle args = new Bundle();
 
         args.putSerializable(EXTRA_PROVINCE_INDEX, provinceIndex);
         args.putSerializable(EXTRA_PROVINCE, province);
-        //args.putInt(PROVINCE_INDEX, provinceIndex);
 
+        //create a fragment object and add the bundle
         SecondFragment fragment = new SecondFragment();
         fragment.setArguments(args);
 
@@ -54,15 +52,8 @@ public class SecondFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
-        //mProvincesTerritoriesArray = new ProvincesTerritoriesArray();
-
-        //retrieve the extra from the intent
-        //int index = (int) getActivity().getIntent().getSerializableExtra(EXTRA_PROVINCE_INDEX);
-        //int index = getActivity().getIntent().getIntExtra(PROVINCE_INDEX, 0);
-        //mProvinceTerritory = findProvinceTerritory(index);
-
-        mProvinceTerritory = (ProvinceTerritory) getActivity().getIntent().getSerializableExtra(EXTRA_PROVINCE);
-
+        //retrieve one of the object from the bundle
+        mProvinceTerritory = (ProvinceTerritory) getArguments().getSerializable(EXTRA_PROVINCE);
 
     }
 
@@ -166,14 +157,6 @@ public class SecondFragment extends Fragment {
         return v;
 
     }
-
-    /*
-    private ProvinceTerritory findProvinceTerritory(int index) {
-
-        return mProvincesTerritoriesArray.getProvincesTerritories()[index];
-
-    }
-    */
 
     private float getPST(float amount){
 

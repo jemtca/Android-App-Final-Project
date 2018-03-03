@@ -2,7 +2,6 @@ package com.bignerdranch.android.finalapp.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +18,13 @@ import com.bignerdranch.android.finalapp.models.ProvincesTerritoriesArray;
 public class MainFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private Spinner mSpinner;
-    private Button mTestButton;
+    //private Button mTestButton;
 
     private ProvincesTerritoriesArray mProvincesTerritoriesArray;
 
     //method to configure the fragment instance
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         //initialization of the territories/provinces in Canada
@@ -36,9 +35,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
 
     //method to create and configure the fragment's view
     //method to inflate fragment's view and return the inflate view
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -55,32 +53,22 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
         //method to go to the second activity once a item was selected
         mSpinner.setOnItemSelectedListener(this);
 
-
-
+        /*
         //button to test before using the spinner
         mTestButton = (Button) v.findViewById(R.id.test_button); //getting the reference
         mTestButton.setOnClickListener(new View.OnClickListener() { //setting the listener
             @Override
             public void onClick(View v) {
 
-                //int index = getProvinceTerritoryIndex("Alberta");
-
-                //SecondFragment sf = SecondFragment.newInstance(index);
-
-                //FragmentManager fm = getFragmentManager();
-                //FragmentTransaction ft = fm.beginTransaction();
-                //ft.replace(R.id.fragment_container, sf);
-                //ft.addToBackStack(null);
-                //ft.commit();
-
+                int index = getProvinceTerritoryIndex("Alberta");
 
                 // start second activity
-                //int index = getProvinceTerritoryIndex("Alberta");
-                //Intent intent = SecondActivity.newIntent(getActivity(), index);
-                //startActivity(intent);
+                Intent intent = SecondActivity.newIntent(getActivity(), index);
+                startActivity(intent);
 
             }
         });
+        */
 
         return v;
 
@@ -220,6 +208,16 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+
+
+    }
+
+    //method to reset the view when the user returns to the main activity
+    @Override
+    public void onResume(){
+
+        super.onResume();
+        mSpinner.setSelection(0); //show first option: select your province/territory
 
 
     }

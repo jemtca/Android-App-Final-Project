@@ -1,19 +1,16 @@
 package com.bignerdranch.android.finalapp.activities;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import com.bignerdranch.android.finalapp.R;
 import com.bignerdranch.android.finalapp.fragments.SecondFragment;
 import com.bignerdranch.android.finalapp.models.ProvinceTerritory;
 import com.bignerdranch.android.finalapp.models.ProvincesTerritoriesArray;
-
-import java.util.UUID;
 
 public class SecondActivity extends SingleFragmentActivity {
 
@@ -36,9 +33,9 @@ public class SecondActivity extends SingleFragmentActivity {
     protected Fragment createFragment(){
 
         int provinceIndex = (int) getIntent().getSerializableExtra(EXTRA_GET_TAXES);
-        mProvinceTerritory = (ProvinceTerritory) getIntent().getSerializableExtra(EXTRA_PROVINCE); //*
+        mProvinceTerritory = (ProvinceTerritory) getIntent().getSerializableExtra(EXTRA_PROVINCE);
 
-        return SecondFragment.newInstance(provinceIndex, mProvinceTerritory); //*
+        return SecondFragment.newInstance(provinceIndex, mProvinceTerritory);
 
     }
 
@@ -46,14 +43,20 @@ public class SecondActivity extends SingleFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_second);
+        setContentView(R.layout.activity_single_fragment);
 
         mProvincesTerritoriesArray = new ProvincesTerritoriesArray();
 
-        //retrieve the extra from the intent
+        //retrieve the extra from the intent (index)
         int index = (int) getIntent().getSerializableExtra(EXTRA_GET_TAXES);
-        //int index = getActivity().getIntent().getIntExtra(PROVINCE_INDEX, 0);
         mProvinceTerritory = findProvinceTerritory(index);
+
+        Fragment sf = SecondFragment.newInstance(index, mProvinceTerritory);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fragment_container, sf);
+        //ft.addToBackStack(null);
+        ft.commit();
 
     }
 
