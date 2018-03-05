@@ -17,6 +17,7 @@ public class SecondFragment extends Fragment {
 
     public static final String EXTRA_PROVINCE_INDEX = "province_index";
     public static final String EXTRA_PROVINCE = "province";
+    public static final String KEY_INPUT = "input";
 
     private ProvinceTerritory mProvinceTerritory;
 
@@ -29,6 +30,8 @@ public class SecondFragment extends Fragment {
     private TextView mLivePstTextView;
     private TextView mLiveHstTextView;
     private TextView mLiveTotalTextView;
+
+    private float amount;
 
 
     public static SecondFragment newInstance(int provinceIndex, ProvinceTerritory province){
@@ -54,6 +57,12 @@ public class SecondFragment extends Fragment {
         super.onCreate(savedInstanceState);
         //retrieve one of the object from the bundle
         mProvinceTerritory = (ProvinceTerritory) getArguments().getSerializable(EXTRA_PROVINCE);
+
+        if(savedInstanceState != null){
+
+            amount = savedInstanceState.getFloat(KEY_INPUT,0);
+
+        }
 
     }
 
@@ -98,7 +107,7 @@ public class SecondFragment extends Fragment {
 
                 if (!s.toString().isEmpty()) {
 
-                    float amount = Float.parseFloat(s.toString());
+                    amount = Float.parseFloat(s.toString());
 
                     if(mProvinceTerritory.getKindOfTaxes() == 1) { //showing gst and pst
 
@@ -155,6 +164,13 @@ public class SecondFragment extends Fragment {
         });
 
         return v;
+
+    }
+    @Override
+    public void onSaveInstanceState(Bundle saveInstanceState){
+
+        super.onSaveInstanceState(saveInstanceState);
+        saveInstanceState.putFloat(KEY_INPUT, amount);
 
     }
 
