@@ -51,12 +51,17 @@ public class SecondActivity extends SingleFragmentActivity {
         int index = (int) getIntent().getSerializableExtra(EXTRA_GET_TAXES);
         mProvinceTerritory = findProvinceTerritory(index);
 
-        Fragment sf = SecondFragment.newInstance(index, mProvinceTerritory);
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container, sf);
-        //ft.addToBackStack(null);
-        ft.commit();
+        //this condition is to avoid to create a new fragment when the user rotates the screen
+        if(savedInstanceState == null){
+
+            Fragment sf = SecondFragment.newInstance(index, mProvinceTerritory);
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.fragment_container, sf);
+            //ft.addToBackStack(null);
+            ft.commit();
+
+        }
 
     }
 

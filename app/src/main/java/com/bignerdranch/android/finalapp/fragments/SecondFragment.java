@@ -58,6 +58,7 @@ public class SecondFragment extends Fragment {
         //retrieve one of the object from the bundle
         mProvinceTerritory = (ProvinceTerritory) getArguments().getSerializable(EXTRA_PROVINCE);
 
+        //condition to update amount value when the user rotates the screen
         if(savedInstanceState != null){
 
             amount = savedInstanceState.getFloat(KEY_INPUT,0);
@@ -166,6 +167,8 @@ public class SecondFragment extends Fragment {
         return v;
 
     }
+
+    //method to save the input when the user rotates the screen
     @Override
     public void onSaveInstanceState(Bundle saveInstanceState){
 
