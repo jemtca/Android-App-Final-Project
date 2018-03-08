@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.bignerdranch.android.finalapp.R;
+import com.bignerdranch.android.finalapp.activities.DetailsActivity;
 import com.bignerdranch.android.finalapp.activities.SecondActivity;
 import com.bignerdranch.android.finalapp.models.ProvincesTerritoriesArray;
 
@@ -19,6 +20,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
 
     private Spinner mSpinner;
     //private Button mTestButton;
+    private Button mDetailsButton;
 
     private ProvincesTerritoriesArray mProvincesTerritoriesArray;
 
@@ -62,13 +64,26 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
 
                 int index = getProvinceTerritoryIndex("Alberta");
 
-                // start second activity
+                //start second activity
                 Intent intent = SecondActivity.newIntent(getActivity(), index);
                 startActivity(intent);
 
             }
         });
         */
+
+        //button to go to the details activity
+        mDetailsButton = (Button) v.findViewById(R.id.details_button); //getting the reference
+        mDetailsButton.setOnClickListener(new View.OnClickListener() { //setting the listener
+            @Override
+            public void onClick(View v) {
+
+                //start details activity
+                Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
         return v;
 

@@ -1,19 +1,8 @@
 <resources>
 
     <string name="app_name">FinalApp</string>
+
     <string name="title">Let\'s calculate general taxes!</string>
-    <string name="input">You have selected:  </string>
-    <string name="pst">Provincial Sales Tax:</string>
-    <string name="gst">Good and Services Tax:</string>
-    <string name="hst">Harmonized Sales Tax:</string>
-    <string name="pst_percent">PST (</string>
-    <string name="gst_percent">GTS (</string>
-    <string name="hst_percent">HST (</string>
-    <string name="percent_plus_parenthesis">% )</string>
-
-    <string name="total">TOTAL: C$</string>
-
-    <string name="test">Go to the second activity</string>
 
     <string-array name="spinner">
         <item>Select your province/territory</item>
@@ -30,6 +19,33 @@
         <item>Northwest Territories</item>
         <item>Nunavut</item>
         <item>Yukon</item>
+    </string-array>
+
+    <string name="test">Go to the second activity</string>
+    <string name="test_2">Go to the details activity</string>
+
+    <string name="input">You have selected:  </string>
+    <string name="pst">Provincial Sales Tax:</string>
+    <string name="gst">Good and Services Tax:</string>
+    <string name="hst">Harmonized Sales Tax:</string>
+    <string name="pst_percent">PST (</string>
+    <string name="gst_percent">GTS (</string>
+    <string name="hst_percent">HST (</string>
+    <string name="percent_plus_parenthesis">% )</string>
+
+    <string name="total">TOTAL: C$</string>
+
+    <string name="purpose">Purpose: </string>
+    <string name="price">Price: </string>
+    <string name="date">Date: </string>
+    <string name="tag_or_ticket">Tag/Ticket: </string>
+    <string name="snapshot">Snapshot: </string>
+    <string name="delete">Delete</string>
+
+    <string-array name="spinner2">
+        <item>Select tag or ticket</item>
+        <item>Tag</item>
+        <item>Ticket</item>
     </string-array>
 
 </resources>
