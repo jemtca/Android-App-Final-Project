@@ -13,6 +13,7 @@ import android.widget.Spinner;
 
 import com.bignerdranch.android.finalapp.R;
 import com.bignerdranch.android.finalapp.activities.DetailsActivity;
+import com.bignerdranch.android.finalapp.activities.DetailsListActivity;
 import com.bignerdranch.android.finalapp.activities.SecondActivity;
 import com.bignerdranch.android.finalapp.models.ProvincesTerritoriesArray;
 
@@ -79,7 +80,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
             public void onClick(View v) {
 
                 //start details activity
-                Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                //Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                Intent intent = new Intent(getActivity(), DetailsListActivity.class);
                 startActivity(intent);
 
             }
