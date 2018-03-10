@@ -14,6 +14,8 @@ import com.bignerdranch.android.finalapp.R;
 import com.bignerdranch.android.finalapp.models.Details;
 import com.bignerdranch.android.finalapp.models.DetailsArray;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class DetailsListFragment extends Fragment {
@@ -74,8 +76,24 @@ public class DetailsListFragment extends Fragment {
         public void bind(Details details){
 
             mDetails = details;
+
             mTitleTextView.setText(mDetails.getPurpose());
-            mDateTextView.setText(mDetails.getDate().toString());
+
+            Date date = mDetails.getDate();
+
+            SimpleDateFormat dayOfTheWeekFormat = new SimpleDateFormat("EEEE");
+            String dayOfTheWeek = dayOfTheWeekFormat.format(date);
+
+            SimpleDateFormat monthFormat = new SimpleDateFormat("MMM");
+            String month = monthFormat.format(date);
+
+            SimpleDateFormat dayFormat = new SimpleDateFormat("d");
+            String day = dayFormat.format(date);
+
+            SimpleDateFormat yearFormat = new SimpleDateFormat("y");
+            String year = yearFormat.format(date);
+
+            mDateTextView.setText(dayOfTheWeek + ", " + month + " " + day + ", " + year + ".");
 
         }
 
