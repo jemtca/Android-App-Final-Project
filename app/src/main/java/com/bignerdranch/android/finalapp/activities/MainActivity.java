@@ -12,10 +12,10 @@ import com.bignerdranch.android.finalapp.fragments.MainFragment;
 public class MainActivity extends AppCompatActivity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_single_fragment);
+        setContentView(R.layout.fragment_container);
 
         //this condition is to avoid to create a new fragment when the user rotates the screen
         if (savedInstanceState == null) {

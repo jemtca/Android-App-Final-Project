@@ -28,10 +28,10 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_single_fragment);
+        setContentView(R.layout.fragment_container);
 
         UUID detailsId = (UUID) getIntent().getSerializableExtra(EXTRA_DETAILS_ID);
 

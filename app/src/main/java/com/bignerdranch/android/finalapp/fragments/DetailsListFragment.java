@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.bignerdranch.android.finalapp.R;
 import com.bignerdranch.android.finalapp.activities.DetailsActivity;
+import com.bignerdranch.android.finalapp.activities.DetailsPagerActivity;
 import com.bignerdranch.android.finalapp.models.Details;
 import com.bignerdranch.android.finalapp.models.DetailsArray;
 
@@ -124,7 +125,8 @@ public class DetailsListFragment extends Fragment {
             //Toast.makeText(getActivity(), mDetails.getPurpose() + " clicked!", Toast.LENGTH_LONG).show();
 
             //start DetailsActivity
-            Intent intent = DetailsActivity.newIntent(getActivity(), mDetails.getId());
+            //Intent intent = DetailsActivity.newIntent(getActivity(), mDetails.getId());
+            Intent intent = DetailsPagerActivity.newIntent(getActivity(), mDetails.getId());
             startActivity(intent);
 
         }
