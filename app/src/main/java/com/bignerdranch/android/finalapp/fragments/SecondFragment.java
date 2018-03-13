@@ -34,7 +34,7 @@ public class SecondFragment extends Fragment {
     private float amount;
 
 
-    public static SecondFragment newInstance(int provinceIndex, ProvinceTerritory province){
+    public static SecondFragment newInstance(int provinceIndex, ProvinceTerritory province) {
 
         //create a bundle object to save two objects (Integer and ProvinceTerritory)
         Bundle args = new Bundle();
@@ -52,16 +52,16 @@ public class SecondFragment extends Fragment {
 
     //method to configure the fragment instance
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         //retrieve one of the object from the bundle
         mProvinceTerritory = (ProvinceTerritory) getArguments().getSerializable(EXTRA_PROVINCE);
 
         //condition to update amount value when the user rotates the screen
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
 
-            amount = savedInstanceState.getFloat(KEY_INPUT,0);
+            amount = savedInstanceState.getFloat(KEY_INPUT, 0);
 
         }
 
@@ -70,7 +70,7 @@ public class SecondFragment extends Fragment {
     //method to create and configure the fragment's view
     //method to inflate fragment's view and return the inflate view
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedOnInstance){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedOnInstance) {
 
         View v = inflater.inflate(R.layout.fragment_second, container, false);
 
@@ -110,7 +110,7 @@ public class SecondFragment extends Fragment {
 
                     amount = Float.parseFloat(s.toString());
 
-                    if(mProvinceTerritory.getKindOfTaxes() == 1) { //showing gst and pst
+                    if (mProvinceTerritory.getKindOfTaxes() == 1) { //showing gst and pst
 
                         float gst = getGTS(amount);
                         mLiveGstTextView.setText(String.valueOf(gst));
@@ -120,8 +120,7 @@ public class SecondFragment extends Fragment {
 
                         mLiveHstTextView.setText("0.0");
 
-                    }
-                    else if(mProvinceTerritory.getKindOfTaxes() == 2){ //only showing gst
+                    } else if (mProvinceTerritory.getKindOfTaxes() == 2) { //only showing gst
 
                         mLivePstTextView.setText("0.0");
 
@@ -130,9 +129,7 @@ public class SecondFragment extends Fragment {
 
                         mLiveHstTextView.setText("0.0");
 
-                    }
-
-                    else if(mProvinceTerritory.getKindOfTaxes() == 3){ //only showing hst
+                    } else if (mProvinceTerritory.getKindOfTaxes() == 3) { //only showing hst
 
                         mLivePstTextView.setText("0.0");
                         mLiveGstTextView.setText("0.0");
@@ -170,14 +167,14 @@ public class SecondFragment extends Fragment {
 
     //method to save the input when the user rotates the screen
     @Override
-    public void onSaveInstanceState(Bundle saveInstanceState){
+    public void onSaveInstanceState(Bundle saveInstanceState) {
 
         super.onSaveInstanceState(saveInstanceState);
         saveInstanceState.putFloat(KEY_INPUT, amount);
 
     }
 
-    private float getPST(float amount){
+    private float getPST(float amount) {
 
         float pst = (amount * mProvinceTerritory.getPst()) / 100;
 
@@ -185,7 +182,7 @@ public class SecondFragment extends Fragment {
 
     }
 
-    private float getGTS(float amount){
+    private float getGTS(float amount) {
 
         float gst = (amount * mProvinceTerritory.getGst()) / 100;
 
@@ -193,7 +190,7 @@ public class SecondFragment extends Fragment {
 
     }
 
-    private float getHST(float amount){
+    private float getHST(float amount) {
 
         float hst = (amount * mProvinceTerritory.getHst()) / 100;
 
@@ -205,18 +202,15 @@ public class SecondFragment extends Fragment {
 
         float total = -1;
 
-        if(mProvinceTerritory.getKindOfTaxes() == 1){ //provinces/territories with gst and pst
+        if (mProvinceTerritory.getKindOfTaxes() == 1) { //provinces/territories with gst and pst
 
             total = amount + getGTS(amount) + getPST(amount);
 
-        }
-        else if(mProvinceTerritory.getKindOfTaxes() == 2){ //provinces/territories with only gst
+        } else if (mProvinceTerritory.getKindOfTaxes() == 2) { //provinces/territories with only gst
 
             total = amount + getGTS(amount);
 
-        }
-
-        else if(mProvinceTerritory.getKindOfTaxes() == 3){ //provinces/territories with hst
+        } else if (mProvinceTerritory.getKindOfTaxes() == 3) { //provinces/territories with hst
 
             total = amount + getHST(amount);
 

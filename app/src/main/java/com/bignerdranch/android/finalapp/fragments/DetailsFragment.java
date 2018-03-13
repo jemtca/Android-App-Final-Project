@@ -15,8 +15,14 @@ import android.widget.Spinner;
 
 import com.bignerdranch.android.finalapp.R;
 import com.bignerdranch.android.finalapp.models.Details;
+import com.bignerdranch.android.finalapp.models.DetailsArray;
+
+import java.util.UUID;
 
 public class DetailsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+
+    //no other class will access this extra
+    private static final String ARG_DETAILS_ID = "details_id";
 
     private Details mDetails;
 
@@ -28,26 +34,47 @@ public class DetailsFragment extends Fragment implements AdapterView.OnItemSelec
     //private
     private Button mDeleteButton;
 
+    //DetailsActivity will call this method instead the constructor
+    //This method creates the fragment instance and bundles up and sets its fragment
+    public static DetailsFragment newInstance(UUID detailsId) {
+
+        Bundle args = new Bundle();
+
+        //inserts a key and a serializable object to the bundle
+        args.putSerializable(ARG_DETAILS_ID, detailsId);
+
+        DetailsFragment fragment = new DetailsFragment();
+        //attaching the arguments to the fragment
+        fragment.setArguments(args);
+
+        return fragment;
+
+    }
+
 
     //method to configure the fragment instance
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        //initialization of the details
-        mDetails = new Details();
+
+        //retrieve the extra from the intent
+        UUID detailsId = (UUID) getArguments().getSerializable(ARG_DETAILS_ID);
+
+        mDetails = DetailsArray.get(getActivity()).getDetails(detailsId);
 
     }
 
     //method to create and configure the fragment's view
     //method to inflate fragment's view and return the inflate view
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_details, container, false);
 
         //getting the reference and setting text (purpose)
         mPurposeEditText = (EditText) v.findViewById(R.id.purpose);
+        mPurposeEditText.setText(mDetails.getPurpose());
         mPurposeEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -84,7 +111,7 @@ public class DetailsFragment extends Fragment implements AdapterView.OnItemSelec
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if(!s.toString().isEmpty()) {
+                if (!s.toString().isEmpty()) {
 
                     mDetails.setPrice(Float.parseFloat(s.toString()));
 
@@ -135,6 +162,10 @@ public class DetailsFragment extends Fragment implements AdapterView.OnItemSelec
         //Apply the adapter to the spinner
         mTagOrTicketSpinner.setAdapter(adapter);
 
+        //set tag or ticket position
+        int myInt = (mDetails.isTagOrTicket()) ? 1 : 0;
+        mTagOrTicketSpinner.setSelection(myInt + 1);
+
         //method to set tag or ticket once a item was selected
         mTagOrTicketSpinner.setOnItemSelectedListener(this);
 
@@ -150,9 +181,9 @@ public class DetailsFragment extends Fragment implements AdapterView.OnItemSelec
 
     //method from AdapterView.OnItemSelectedListener interface
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id){
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-        switch(pos){
+        switch (pos) {
 
             case 0:
 
@@ -177,7 +208,6 @@ public class DetailsFragment extends Fragment implements AdapterView.OnItemSelec
     //method from AdapterView.OnItemSelectedListener interface
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
 
 
     }

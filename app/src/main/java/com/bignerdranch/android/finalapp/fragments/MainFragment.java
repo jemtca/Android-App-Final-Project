@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.bignerdranch.android.finalapp.R;
-import com.bignerdranch.android.finalapp.activities.DetailsActivity;
 import com.bignerdranch.android.finalapp.activities.DetailsListActivity;
 import com.bignerdranch.android.finalapp.activities.SecondActivity;
 import com.bignerdranch.android.finalapp.models.ProvincesTerritoriesArray;
@@ -93,7 +92,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
 
     //method from AdapterView.OnItemSelectedListener interface
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id){
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
         /*
         // On selecting a spinner item
@@ -107,7 +106,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
         int index;
         Intent intent;
 
-        switch(pos){
+        switch (pos) {
             case 0:
 
                 break;
@@ -226,12 +225,11 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
     public void onNothingSelected(AdapterView<?> parent) {
 
 
-
     }
 
     //method to reset the view when the user returns to the main activity
     @Override
-    public void onResume(){
+    public void onResume() {
 
         super.onResume();
         mSpinner.setSelection(0); //show first option: select your province/territory
@@ -240,14 +238,14 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
     }
 
     //method to find the index of a specific province (name) inside the array of provinces
-    private int getProvinceTerritoryIndex(String name){
+    private int getProvinceTerritoryIndex(String name) {
 
         int index = -1;
         boolean found = false;
 
-        for(int i = 0; i < mProvincesTerritoriesArray.getProvincesTerritories().length && !found; i++){
+        for (int i = 0; i < mProvincesTerritoriesArray.getProvincesTerritories().length && !found; i++) {
 
-            if(name.equalsIgnoreCase(mProvincesTerritoriesArray.getProvincesTerritories()[i].getName())){
+            if (name.equalsIgnoreCase(mProvincesTerritoriesArray.getProvincesTerritories()[i].getName())) {
 
                 index = i;
                 found = true;

@@ -1,5 +1,6 @@
 package com.bignerdranch.android.finalapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bignerdranch.android.finalapp.R;
+import com.bignerdranch.android.finalapp.activities.DetailsActivity;
 import com.bignerdranch.android.finalapp.models.Details;
 import com.bignerdranch.android.finalapp.models.DetailsArray;
 
@@ -26,7 +28,7 @@ public class DetailsListFragment extends Fragment {
     //method to create and configure the fragment's view
     //method to inflate fragment's view and return the inflate view
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_details_list, container, false);
 
@@ -40,27 +42,44 @@ public class DetailsListFragment extends Fragment {
 
     }
 
+    //method to update changes in the list of details (fragment´s view)
+    @Override
+    public void onResume() {
+
+        super.onResume();
+        updateUI();
+
+    }
+
     //method to set up DetailsListFragment's UI
-    private void updateUI(){
+    private void updateUI() {
 
         DetailsArray detailsArray = DetailsArray.get(getActivity()); //getting singleton object
         List<Details> details = detailsArray.getDetails(); //getting all the details objects (List)
 
-        //set the adapter to the RecyclerView
-        mDetailsAdapter = new DetailsAdapter(details);
-        mDetailsRecyclerView.setAdapter(mDetailsAdapter);
+        if (mDetailsAdapter == null) {
+
+            //set the adapter to the RecyclerView
+            mDetailsAdapter = new DetailsAdapter(details);
+            mDetailsRecyclerView.setAdapter(mDetailsAdapter);
+
+        } else {
+
+            mDetailsAdapter.notifyDataSetChanged();
+
+        }
 
     }
 
     //ViewHolder (inner class). It will inflate and own the layout
-    private class DetailsHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    private class DetailsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Details mDetails;
 
         private TextView mTitleTextView;
         private TextView mDateTextView;
 
-        public DetailsHolder(LayoutInflater inflater, ViewGroup parent){
+        public DetailsHolder(LayoutInflater inflater, ViewGroup parent) {
 
             super(inflater.inflate(R.layout.list_item_details, parent, false));
 
@@ -73,7 +92,7 @@ public class DetailsListFragment extends Fragment {
 
         //method to set the information from the object (bind)
         //when given a details, DetailsHolder will update the title and the date to reflect the state of the Details
-        public void bind(Details details){
+        public void bind(Details details) {
 
             mDetails = details;
 
@@ -102,18 +121,22 @@ public class DetailsListFragment extends Fragment {
         @Override
         public void onClick(View v) {
 
-            Toast.makeText(getActivity(), mDetails.getPurpose() + " clicked!", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), mDetails.getPurpose() + " clicked!", Toast.LENGTH_LONG).show();
+
+            //start DetailsActivity
+            Intent intent = DetailsActivity.newIntent(getActivity(), mDetails.getId());
+            startActivity(intent);
 
         }
     }
 
     //CrimeAdapter (inner class)
     //Necessary to display a ViewHolder or connect an object to an existing ViewHolder
-    private class DetailsAdapter extends RecyclerView.Adapter<DetailsHolder>{
+    private class DetailsAdapter extends RecyclerView.Adapter<DetailsHolder> {
 
         private List<Details> mDetails;
 
-        public DetailsAdapter(List<Details> details){
+        public DetailsAdapter(List<Details> details) {
 
             mDetails = details;
 
