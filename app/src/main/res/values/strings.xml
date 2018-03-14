@@ -47,5 +47,7 @@
         <item>Tag</item>
         <item>Ticket</item>
     </string-array>
+    
+    <string name="date_picker_title">Date:</string>
 
 </resources>

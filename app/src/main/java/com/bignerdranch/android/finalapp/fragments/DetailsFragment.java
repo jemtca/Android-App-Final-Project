@@ -1,7 +1,10 @@
 package com.bignerdranch.android.finalapp.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -17,18 +20,23 @@ import com.bignerdranch.android.finalapp.R;
 import com.bignerdranch.android.finalapp.models.Details;
 import com.bignerdranch.android.finalapp.models.DetailsArray;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 public class DetailsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     //no other class will access this extra
     private static final String ARG_DETAILS_ID = "details_id";
+    private static final String DIALOG_DATE = "dialog_date";
+
+    private static final int REQUEST_DATE = 0;
 
     private Details mDetails;
 
     private EditText mPurposeEditText;
     private EditText mPriceEditText;
-    private EditText mDateEditView;
+    private Button mDateButton;
     private Spinner mTagOrTicketSpinner;
     private Button mSnapshotButton;
     //private
@@ -100,6 +108,18 @@ public class DetailsFragment extends Fragment implements AdapterView.OnItemSelec
 
         //getting the reference and setting text (price)
         mPriceEditText = (EditText) v.findViewById(R.id.price);
+
+        if(mDetails.getPrice() == 0.0){
+
+            mPriceEditText.setText("");
+
+        }
+        else{
+
+            mPriceEditText.setText(String.valueOf(mDetails.getPrice()));
+
+
+        }
         mPriceEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -116,6 +136,11 @@ public class DetailsFragment extends Fragment implements AdapterView.OnItemSelec
                     mDetails.setPrice(Float.parseFloat(s.toString()));
 
                 }
+                else if(s.toString().isEmpty()){
+
+                    mDetails.setPrice(0.0f);
+
+                }
 
             }
 
@@ -127,30 +152,29 @@ public class DetailsFragment extends Fragment implements AdapterView.OnItemSelec
             }
         });
 
-        //getting the reference and setting the text (date)
-        mDateEditView = (EditText) v.findViewById(R.id.date);
-        mDateEditView.addTextChangedListener(new TextWatcher() {
+        //getting the reference and setting the button (date)
+        mDateButton = (Button) v.findViewById(R.id.date);
+
+        updateDate();
+
+        //mDateButton.setEnabled(false);
+        mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void onClick(View v) {
 
-                //no need to implement anything
+                FragmentManager fragmentManager = getFragmentManager();
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                //implement it later
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                //no need to implement anything
+                //DatePickerFragment dialog = new DatePickerFragment();
+                DatePickerFragment dialog = DatePickerFragment.newInstance(mDetails.getDate());
+                //setting this fragment as a target
+                dialog.setTargetFragment(DetailsFragment.this, REQUEST_DATE);
+                //the string parameter uniquely identifies the DialogFragment in the FragmentManager’s list
+                dialog.show(fragmentManager, DIALOG_DATE);
 
             }
         });
+
+
 
         //getting the reference and setting the spinner
         mTagOrTicketSpinner = (Spinner) v.findViewById(R.id.spinner2);
@@ -209,6 +233,48 @@ public class DetailsFragment extends Fragment implements AdapterView.OnItemSelec
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+
+        if(resultCode != Activity.RESULT_OK){
+
+            return;
+
+        }
+
+        if(requestCode == REQUEST_DATE){
+
+            Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+
+            mDetails.setDate(date);
+
+            updateDate();
+
+        }
+
+    }
+
+    //method to update date
+    private void updateDate(){
+
+        Date date = mDetails.getDate();
+
+        SimpleDateFormat dayOfTheWeekFormat = new SimpleDateFormat("EEEE");
+        String dayOfTheWeek = dayOfTheWeekFormat.format(date);
+
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMM");
+        String month = monthFormat.format(date);
+
+        SimpleDateFormat dayFormat = new SimpleDateFormat("d");
+        String day = dayFormat.format(date);
+
+        SimpleDateFormat yearFormat = new SimpleDateFormat("y");
+        String year = yearFormat.format(date);
+
+        mDateButton.setText(dayOfTheWeek + ", " + month + " " + day + ", " + year + ".");
 
     }
 

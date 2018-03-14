@@ -17,7 +17,7 @@ public class DetailsArray {
 
         mDetails = new ArrayList<>(); //empty list of details
 
-        for(int i = 0; i < 50; i++){
+        for(int i = 0; i < 5; i++){
 
             Details details = new Details();
 

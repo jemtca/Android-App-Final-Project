@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,6 +80,7 @@ public class DetailsListFragment extends Fragment {
 
         private TextView mTitleTextView;
         private TextView mDateTextView;
+        private ImageView mImageView;
 
         public DetailsHolder(LayoutInflater inflater, ViewGroup parent) {
 
@@ -88,6 +90,7 @@ public class DetailsListFragment extends Fragment {
 
             mTitleTextView = (TextView) itemView.findViewById(R.id.details_title);
             mDateTextView = (TextView) itemView.findViewById(R.id.details_date);
+            mImageView = (ImageView) itemView.findViewById(R.id.logo);
 
         }
 
@@ -114,6 +117,19 @@ public class DetailsListFragment extends Fragment {
             String year = yearFormat.format(date);
 
             mDateTextView.setText(dayOfTheWeek + ", " + month + " " + day + ", " + year + ".");
+
+            //0 or false: it is a tag
+            if(!mDetails.isTagOrTicket()){
+
+                mImageView.setImageResource(R.drawable.ic_action_tag);
+
+            }
+            //1 or true: it is a ticket
+            else{
+
+                mImageView.setImageResource(R.drawable.ic_action_ticket);
+
+            }
 
         }
 
@@ -160,6 +176,7 @@ public class DetailsListFragment extends Fragment {
         public void onBindViewHolder(DetailsHolder holder, int position) {
 
             Details details = mDetails.get(position);
+            //holder.itemView.setBackgroundColor();
             holder.bind(details);
 
         }
