@@ -6,8 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,6 +21,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.bignerdranch.android.finalapp.R;
+import com.bignerdranch.android.finalapp.activities.DetailsPagerActivity;
 import com.bignerdranch.android.finalapp.models.Details;
 import com.bignerdranch.android.finalapp.models.DetailsArray;
 
@@ -65,6 +70,7 @@ public class DetailsFragment extends Fragment implements AdapterView.OnItemSelec
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
         //retrieve the extra from the intent
         UUID detailsId = (UUID) getArguments().getSerializable(ARG_DETAILS_ID);
@@ -83,6 +89,10 @@ public class DetailsFragment extends Fragment implements AdapterView.OnItemSelec
         //getting the reference and setting text (purpose)
         mPurposeEditText = (EditText) v.findViewById(R.id.purpose);
         mPurposeEditText.setText(mDetails.getPurpose());
+
+        //mPurposeEditText.setEnabled(false);
+        //mPurposeEditText.setInputType(InputType.TYPE_NULL);
+
         mPurposeEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -120,6 +130,9 @@ public class DetailsFragment extends Fragment implements AdapterView.OnItemSelec
 
 
         }
+
+        //mPriceEditText.setEnabled(false);
+
         mPriceEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -158,6 +171,8 @@ public class DetailsFragment extends Fragment implements AdapterView.OnItemSelec
         updateDate();
 
         //mDateButton.setEnabled(false);
+
+        //mDateButton.setEnabled(false);
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,14 +205,30 @@ public class DetailsFragment extends Fragment implements AdapterView.OnItemSelec
         int myInt = (mDetails.isTagOrTicket()) ? 1 : 0;
         mTagOrTicketSpinner.setSelection(myInt + 1);
 
+        //mTagOrTicketSpinner.setEnabled(false);
+
         //method to set tag or ticket once a item was selected
         mTagOrTicketSpinner.setOnItemSelectedListener(this);
 
         //getting the reference and setting the button
         mSnapshotButton = (Button) v.findViewById(R.id.button_pic);
 
+        //mSnapshotButton.setEnabled(false);
+
         //getting the reference and setting the button
         mDeleteButton = (Button) v.findViewById(R.id.button_delete);
+        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int index = DetailsArray.get(getActivity()).getDetails().indexOf(mDetails);
+
+                DetailsArray.get(getActivity()).deleleDetails(index);
+
+                getActivity().finish();
+
+            }
+        });
 
         return v;
 
@@ -252,6 +283,33 @@ public class DetailsFragment extends Fragment implements AdapterView.OnItemSelec
             mDetails.setDate(date);
 
             updateDate();
+
+        }
+
+    }
+
+    //method to inflate the menu defined in fragment_details.xml
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_details, menu);
+
+    }
+
+    //method to respond the user presses (action item)
+    //to determine which action item (checking the ID of the MenuItem)
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        switch (item.getItemId()){
+
+            case R.id.edit_details:
+                return true;
+
+            default:
+
+                return super.onOptionsItemSelected(item);
 
         }
 

@@ -3,11 +3,16 @@ package com.bignerdranch.android.finalapp.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,19 +29,51 @@ import java.util.List;
 
 public class DetailsListFragment extends Fragment {
 
+    private static final String SAVED_SUBTITLE_STATE = "subtitle";
+
     private RecyclerView mDetailsRecyclerView;
     private DetailsAdapter mDetailsAdapter;
+    private boolean mSubtitleVisible;
+
+    private TextView mTextView;
+    private ImageButton mAddButton;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+
+        super.onCreate(savedInstanceState);
+        //letting the FragmentManager know that my fragment should receive a call to onCreateOptionsMenu()
+        //setHasOptionsMenu(true);
+
+    }
 
     //method to create and configure the fragment's view
     //method to inflate fragment's view and return the inflate view
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_details_list, container, false);
+        //View view = inflater.inflate(R.layout.fragment_details_list, container, false);
 
         //wiring up the RecyclerView widget
-        mDetailsRecyclerView = (RecyclerView) view.findViewById(R.id.details_recycler_view); //getting the reference
+        //mDetailsRecyclerView = (RecyclerView) view.findViewById(R.id.details_recycler_view); //getting the reference
+        //mDetailsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity())); //RecyclerView needs LayoutManager to work
+
+
+        View view = inflater.inflate(R.layout.fragment_details_list_button, container, false);
+
+        //wiring up the RecyclerView widget
+        mDetailsRecyclerView = (RecyclerView) view.findViewById(R.id.details_recycler_view_button); //getting the reference
         mDetailsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity())); //RecyclerView needs LayoutManager to work
+
+        //updating mSubtitleVisible if it exists already
+        if(savedInstanceState != null){
+
+            mSubtitleVisible = savedInstanceState.getBoolean(SAVED_SUBTITLE_STATE);
+
+        }
+
+        mTextView = view.findViewById(R.id.temporary_message);
+        mAddButton = (ImageButton) view.findViewById(R.id.temporary_button);
 
         updateUI();
 
@@ -50,6 +87,99 @@ public class DetailsListFragment extends Fragment {
 
         super.onResume();
         updateUI();
+
+    }
+    //save the mSubtitleVisible instance variable across rotation with the saved instance state mechanism
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(SAVED_SUBTITLE_STATE, mSubtitleVisible);
+
+    }
+
+    //method to inflate the menu defined in fragment_details_list.xml
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_details_list, menu);
+
+        MenuItem subtitleItem = menu.findItem(R.id.show_entries);
+
+        if(mSubtitleVisible){
+
+            subtitleItem.setTitle(R.string.hide_subtitle);
+
+        }
+        else{
+
+            subtitleItem.setTitle(R.string.show_subtitle);
+
+        }
+
+    }
+
+    //method to respond the user presses (action item)
+    //to determine which action item (checking the ID of the MenuItem)
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        switch (item.getItemId()){
+
+            case R.id.new_entry:
+
+                Details details = new Details();
+
+                DetailsArray.get(getActivity()).addDetails(details);
+
+                Intent intent = DetailsPagerActivity.newIntent(getActivity(), details.getId());
+
+                startActivity(intent);
+
+                return true;
+
+            case R.id.show_entries:
+
+                mSubtitleVisible = !mSubtitleVisible;
+
+                //this makes onCreateOptionsMenu to be called again
+                getActivity().invalidateOptionsMenu();
+
+                updateSubtitle();
+
+                return true;
+
+            default:
+
+                return super.onOptionsItemSelected(item);
+
+        }
+
+    }
+
+    //method to show how many entries the user has
+    private void updateSubtitle(){
+
+        String subtitle;
+
+        DetailsArray detailsArray = DetailsArray.get(getActivity());
+
+        int detailsCount = detailsArray.getDetails().size();
+
+        //String subtitle = getString(R.string.subtitle_format, detailsCount);
+        subtitle = getResources().getQuantityString(R.plurals.subtitle_plural, detailsCount, detailsCount);
+
+
+        if(!mSubtitleVisible || DetailsArray.get(getActivity()).getDetails().isEmpty()){
+
+            subtitle = null;
+
+        }
+
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+
+        activity.getSupportActionBar().setSubtitle(subtitle);
 
     }
 
@@ -70,6 +200,38 @@ public class DetailsListFragment extends Fragment {
             mDetailsAdapter.notifyDataSetChanged();
 
         }
+
+        if (details.size() > 0) {
+
+            //letting the FragmentManager know that my fragment should receive a call to onCreateOptionsMenu()
+            setHasOptionsMenu(true);
+            mTextView.setVisibility(View.GONE);
+            mAddButton.setVisibility(View.GONE);
+
+        } else {
+
+            //letting the FragmentManager know that my fragment should not receive a call to onCreateOptionsMenu()
+            setHasOptionsMenu(false);
+            mTextView.setVisibility(View.VISIBLE);
+            mAddButton.setVisibility(View.VISIBLE);
+            mAddButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Details details = new Details();
+
+                    DetailsArray.get(getActivity()).addDetails(details);
+
+                    Intent intent = DetailsPagerActivity.newIntent(getActivity(), details.getId());
+
+                    startActivity(intent);
+
+                }
+            });
+
+        }
+
+        updateSubtitle();
 
     }
 
@@ -121,13 +283,13 @@ public class DetailsListFragment extends Fragment {
             //0 or false: it is a tag
             if(!mDetails.isTagOrTicket()){
 
-                mImageView.setImageResource(R.drawable.ic_action_tag);
+                mImageView.setImageResource(R.drawable.ic_tag);
 
             }
             //1 or true: it is a ticket
             else{
 
-                mImageView.setImageResource(R.drawable.ic_action_ticket);
+                mImageView.setImageResource(R.drawable.ic_ticket);
 
             }
 

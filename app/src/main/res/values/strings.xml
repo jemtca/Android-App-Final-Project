@@ -50,4 +50,18 @@
     
     <string name="date_picker_title">Date:</string>
 
+    <string name="new_details">New Entry</string>
+    <string name="show_subtitle">Show Entries</string>
+    <string name="hide_subtitle">Hide Entries</string>
+
+    <string name="no_items">No entries</string>
+    <plurals name="subtitle_plural">
+        <item quantity="one">%1$d entry</item>
+        <item quantity="other">%1$d entries</item>
+    </plurals>
+
+    <string name="empty_crime_list_label">This screen is too lonely, why don\'t you add something?</string>
+
+    <string name="edit_details">Edit Details</string>
+
 </resources>

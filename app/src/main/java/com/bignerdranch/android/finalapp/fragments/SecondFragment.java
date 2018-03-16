@@ -167,10 +167,10 @@ public class SecondFragment extends Fragment {
 
     //method to save the input when the user rotates the screen
     @Override
-    public void onSaveInstanceState(Bundle saveInstanceState) {
+    public void onSaveInstanceState(Bundle outState) {
 
-        super.onSaveInstanceState(saveInstanceState);
-        saveInstanceState.putFloat(KEY_INPUT, amount);
+        super.onSaveInstanceState(outState);
+        outState.putFloat(KEY_INPUT, amount);
 
     }
 

@@ -17,7 +17,7 @@ public class DetailsArray {
 
         mDetails = new ArrayList<>(); //empty list of details
 
-        for(int i = 0; i < 5; i++){
+        /*for(int i = 0; i < 5; i++){
 
             Details details = new Details();
 
@@ -36,7 +36,7 @@ public class DetailsArray {
 
             mDetails.add(details);
 
-        }
+        }*/
 
     }
 
@@ -51,6 +51,18 @@ public class DetailsArray {
         }
 
         return mDetailsArray;
+
+    }
+
+    public void addDetails(Details d){
+
+        mDetails.add(d);
+
+    }
+
+    public void deleleDetails(int index){
+
+        mDetails.remove(index);
 
     }
 
