@@ -11,10 +11,23 @@ public class Details {
     private Date mDate; //date
     private boolean mTagOrTicket; //tag = 0, ticket = 1
 
-    public Details(){
+    /*public Details(){
 
         mId = UUID.randomUUID(); //generate an unique id
         mDate = new Date(); //this constructor sets the current date
+
+    }*/
+
+    public Details(){
+
+        this(UUID.randomUUID());
+
+    }
+
+    public Details(UUID id){
+
+        mId = id;
+        mDate = new Date();
 
     }
 

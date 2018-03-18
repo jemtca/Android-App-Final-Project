@@ -22,7 +22,7 @@
     </string-array>
 
     <string name="test">Go to the second activity</string>
-    <string name="test_2">Go to the details activity</string>
+    <string name="test_2">Purchases / Wish List</string>
 
     <string name="input">You have selected:  </string>
     <string name="pst">Provincial Sales Tax:</string>

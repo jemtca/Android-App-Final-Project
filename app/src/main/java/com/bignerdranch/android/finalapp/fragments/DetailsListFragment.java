@@ -197,6 +197,7 @@ public class DetailsListFragment extends Fragment {
 
         } else {
 
+            mDetailsAdapter.setDetails(details);
             mDetailsAdapter.notifyDataSetChanged();
 
         }
@@ -349,6 +350,13 @@ public class DetailsListFragment extends Fragment {
             return mDetails.size();
 
         }
+
+        public void setDetails(List<Details> details) {
+
+            mDetails = details;
+
+        }
+
     }
 
 }

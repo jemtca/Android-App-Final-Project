@@ -79,6 +79,14 @@ public class DetailsFragment extends Fragment implements AdapterView.OnItemSelec
 
     }
 
+    @Override
+    public void onPause() {
+
+        super.onPause();
+        DetailsArray.get(getActivity()).updateDetails(mDetails);
+
+    }
+
     //method to create and configure the fragment's view
     //method to inflate fragment's view and return the inflate view
     @Override
@@ -221,9 +229,9 @@ public class DetailsFragment extends Fragment implements AdapterView.OnItemSelec
             @Override
             public void onClick(View v) {
 
-                int index = DetailsArray.get(getActivity()).getDetails().indexOf(mDetails);
+                //DetailsArray.get(getActivity()).deleteDetails(mDetails);
 
-                DetailsArray.get(getActivity()).deleleDetails(index);
+                DetailsArray.get(getActivity()).deleteDetails(mDetails);
 
                 getActivity().finish();
 
