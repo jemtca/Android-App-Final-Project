@@ -12,6 +12,9 @@ Goal (feature/s): Improve and add some new features to the app built for the mid
 
 ## Screenshots
 ![](https://github.com/jemtca/Android-App-Final-Project/blob/master/screenshots/Android%20midterm%20portrait.gif)
+![](https://github.com/jemtca/Android-App-Final-Project/blob/master/screenshots/Android%20midterm%20portrait.gif)
+![](https://github.com/jemtca/Android-App-Final-Project/blob/master/screenshots/Android%20final%20portrait.gif)
+![](https://github.com/jemtca/Android-App-Final-Project/blob/master/screenshots/Android%20final%20landscape.gif)
 
 ## Final project improvements
 * Portrait view and landscape view was fixed
