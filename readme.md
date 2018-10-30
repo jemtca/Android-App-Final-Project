@@ -4,6 +4,14 @@ Repository to upload the final app for the android development course.
 
 Goal (feature/s): Improve and add some new features to the app built for the midterm project.
 
+## About
+* Android application to calculate general taxes in Canada.
+* Purchases/Wish List section.
+  * Purchase items (shopping cart icon)
+  * Wish items (heart shape icon)
+
+## Screenshots
+
 
 ## Final project improvements
 * Portrait view and landscape view was fixed
