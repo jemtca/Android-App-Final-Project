@@ -11,7 +11,7 @@ Goal (feature/s): Improve and add some new features to the app built for the mid
   * Wish items (heart shape icon)
 
 ## Screenshots
-![](screenshots/Android midterm portrait.gif)
+![](screenshots/Android-midterm-portrait.gif)
 
 ## Final project improvements
 * Portrait view and landscape view was fixed
